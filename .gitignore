@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+dist/
+.venv/
+*.blend
+*.blend1
+*.blend2
+*.glb
+*.fbx
+*.exr
+.env
+.env.*
+runtime/
