@@ -9,7 +9,7 @@ A Blender extension and a companion AI skill for protected, editable UV candidat
 Download the assets from [v0.8.7](https://github.com/tsist/blender-uv-workflow/releases/tag/v0.8.7):
 
 - `uv-workflow-0.8.7.zip`: use Blender's Extensions → Install from Disk, then enable UV Workflow. Open the 3D View sidebar (`N`) → UV Workflow. The add-on works without blenderctl.
-- `blender-uv-skill-20261117.zip`: extract and copy the complete `skills/blender-uv` directory into your agent's skill directory. Back up an existing installation first. The skill is guidance, not a standalone solver.
+- `blender-uv-skill-20261117.zip`: extract and copy the complete `skills/blender-uv` directory into your agent's skill directory, retaining the archive's root `LICENSE` and `NOTICE.md` in that installed directory. Back up an existing installation first. The skill is guidance, not a standalone solver.
 - `SHA256SUMS.txt`: SHA-256 checksums for both archives.
 
 Do not install GitHub's automatically generated repository source archive as a Blender extension.

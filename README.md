@@ -16,7 +16,7 @@ Blender UV 插件与配套 AI 工作技能：保留原 UV，制作可编辑候�
 
 插件安装：Blender「编辑 → 偏好设置 → 获取扩展 / Extensions → 从磁盘安装 / Install from Disk」，选择插件 ZIP 并启用。打开 3D 视图右侧栏（`N`）中的 **UV Workflow**。不要把 GitHub 自动生成的整个仓库 Source code ZIP 当作扩展安装包。
 
-技能安装：解压技能 ZIP，将 `skills/blender-uv` 整个目录复制到你的代理支持的技能目录（例如 `~/.agents/skills/blender-uv`）。复制前备份已有同名目录；只复制 `SKILL.md` 会丢失参考资料。此技能提供制作判断与操作指导，不是独立 UV 求解器。
+技能安装：解压技能 ZIP，将 `skills/blender-uv` 整个目录复制到你的代理支持的技能目录（例如 `~/.agents/skills/blender-uv`），并将 ZIP 根目录的 `LICENSE`、`NOTICE.md` 一并保留到安装后的技能目录。复制前备份已有同名目录；只复制 `SKILL.md` 会丢失参考资料。此技能提供制作判断与操作指导，不是独立 UV 求解器。
 
 ## 工作方式
 
