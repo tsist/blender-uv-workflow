@@ -290,7 +290,7 @@ def normalize(value):
     return v
 
 def describe():
-    return {"version": "0.8.7", "milestone": "Strict boolean completion evidence in GUI disk reports", "operations": ["generate", "inspect", "validate", "adopt", "restore", "edit", "recipe", "copy_uv", "settings", "seams", "lightmap", "transfer"],
+    return {"version": "0.8.8", "milestone": "Blender 5.3 candidate and packing compatibility", "operations": ["generate", "inspect", "validate", "adopt", "restore", "edit", "recipe", "copy_uv", "settings", "seams", "lightmap", "transfer"],
             "edit_actions": ['translate','rotate','scale','mirror','align','straighten','density','pin','lock','relax','unwrap','stitch','pack','sync_pins','split','orient','stack','unstack'],
             "pin_sync":"Explicit selected native pin import after validate; coordinates and native flags unchanged, locked-face anchors preserved",
             "split":"Move explicit FACES by delta_px, split continuous selection boundaries and mark seams; preserve prior cuts and unselected UV",

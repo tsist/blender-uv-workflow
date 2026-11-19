@@ -2,7 +2,11 @@
 
 ## 已有本地验证
 
-发布源来自 UV 0.8.7 的已验交付。核查时使用的 Blender 基线为 5.2.1 LTS；未宣称所有 Blender 5.2+ 发行版均通过。
+0.8.8 在独立配置验证 Windows / Blender 5.2.1 LTS（`9e2066aef7ef`）与 5.3.0（`02f0899d78e3`）。从 ZIP 安装启用，对启动场景立方体执行 SMART 展开和重新检查，逐值核对原 UV，然后保存候选并在另一 Blender 进程重新验证。
+
+两版运行 `tools/uv_workflow_addon/tests/blender_pack_margin_regression.py` 的七个现有夹具。测试核对像素边距、正方与长方布局、锁定岛、密度保持和部分选择。部分选择夹具保留预期重叠并要求报告指出重叠。用 Blender 的 `--background --factory-startup --disable-autoexec --python-exit-code 23 --python` 指定该脚本即可复跑。
+
+下表记录 0.8.7 在 5.2.1 LTS 的既有验证。
 
 | 检查 | 本地结果 | 证据边界 |
 | --- | --- | --- |

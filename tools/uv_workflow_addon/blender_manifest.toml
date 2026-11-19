@@ -1,6 +1,6 @@
 schema_version = "1.0.0"
 id = "uv_workflow"
-version = "0.8.7"
+version = "0.8.8"
 name = "UV Workflow"
 tagline = "Editable UV candidates with independent validation"
 maintainer = "Blender AI"

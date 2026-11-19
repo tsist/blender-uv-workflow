@@ -2,15 +2,15 @@
 
 Blender UV 插件与配套 AI 工作技能：保留原 UV，制作可编辑候选，检查排布、拉伸、密度与约束，再由实际材质和目标消费者验收。
 
-**0.8.7 · GPL-3.0-or-later · Blender 5.2+**。本次为有限验证的预览发行。插件界面主要为中文。English overview: [README.en.md](README.en.md).
+**0.8.8 · GPL-3.0-or-later · Blender 5.2.1 LTS / 5.3.0**。本次为有限验证的预览发行。插件界面主要为中文。English overview: [README.en.md](README.en.md).
 
 ## 下载与安装
 
-从 [v0.8.7 发行页](https://github.com/tsist/blender-uv-workflow/releases/tag/v0.8.7)下载：
+从 [v0.8.8 发行页](https://github.com/tsist/blender-uv-workflow/releases/tag/v0.8.8)下载：
 
 | 文件 | 用途 |
 | --- | --- |
-| `uv-workflow-0.8.7.zip` | Blender 扩展安装包，不需要 blenderctl |
+| `uv-workflow-0.8.8.zip` | Blender 扩展安装包，不需要 blenderctl |
 | `blender-uv-skill-20261117.zip` | 完整 `blender-uv` 技能、20 篇参考方法与 UV 工作流文档 |
 | `SHA256SUMS.txt` | 两份安装包的 SHA-256 校验值 |
 
@@ -37,7 +37,9 @@ GUI 插件仅使用 Python 标准库和 Blender 随附的 `bpy`、`bmesh`、`mat
 
 ## 验证与限制
 
-发布保留已验生产模块及技能原字节，只新增仓库说明、测试入口与打包资源。0.8.7 修复磁盘表面报告中 `sample.complete` 的类型判断：只接受 JSON 布尔值，非法值拒绝并清除旧成功缓存。
+0.8.8 在 Windows 上验证 Blender 5.2.1 LTS 与 5.3.0 的扩展安装、SMART 展开、新候选验证和保存重开。原 UV 坐标保持逐值相同。七个打包夹具核对方形和长方形边距、锁定岛保护、密度保持及部分选择的重叠判定。运行时更新版本声明并沿用既有求解器。[验收与复跑说明](docs/VALIDATION.md)
+
+0.8.7 修复磁盘表面报告中 `sample.complete` 的类型判断，只接受 JSON 布尔值。非法值会拒绝并清除旧成功缓存。
 
 本地已完成 33 项报告类型用例、7 项报告完整性用例、14 项 CLI 回归，以及实际 GUI「合法 → 非法整数拒绝并清缓存 → 合法恢复」观察。详情和可复现范围见[验证说明](docs/VALIDATION.md)。这不是完整报告 schema/防伪认证，也不是完整游戏生产认证。
 
