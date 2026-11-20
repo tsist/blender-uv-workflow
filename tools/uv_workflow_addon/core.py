@@ -3,6 +3,7 @@ import copy
 import hashlib
 import json
 import math
+import sys
 from contextlib import contextmanager
 import bpy
 import bmesh
@@ -282,10 +283,14 @@ def _solve(objects,cs,method,v,unit,solver_details=None,progress=None):
         if not math.isfinite(span) or span<=0:fail("Degenerate solver output", "VALIDATION_FAILED")
         for o in objects:
             uv=coordinates(o.data,layer);_write_uv(o.data,layer,(uv-low)*(.8/span)+.1)
+    # The Linux Blender 5.3 CONCAVE/FRACTION pack can hang on an unlocked
+    # Smart Project result. Use bounding boxes only for that native solve;
+    # the same margin and independent quality gates still apply.
+    shape='AABB' if sys.platform=='linux' and bpy.app.version[:2]==(5,3) and method=='SMART' and not fixed else 'CONCAVE'
     _edit(objects)
     try:
         outcome=bpy.ops.uv.pack_islands(udim_source='CLOSEST_UDIM',rotate=True,scale=not fixed,
-            margin_method='FRACTION',margin=native_pack_margin(v['margin_px'],min(v['width'],v['height']),fixed),shape_method='CONCAVE',
+            margin_method='FRACTION',margin=native_pack_margin(v['margin_px'],min(v['width'],v['height']),fixed),shape_method=shape,
             pin=fixed,pin_method='LOCKED')
         if outcome!={'FINISHED'}:fail('Native packing did not finish: '+str(outcome),'VALIDATION_FAILED')
     finally:bpy.ops.object.mode_set(mode='OBJECT')
