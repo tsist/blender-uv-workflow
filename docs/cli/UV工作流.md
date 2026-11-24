@@ -1,20 +1,20 @@
 # UV 工作流（M5 可编辑形变保护、诊断与求值表面）
 
-2026-11-17当前工作区为**UV0.8.7 / CLI0.88.0**。GUI磁盘报告读取器在聚合前要求每个样本`complete`为明确布尔值；`1`、`1.0`、字符串、列表、对象、null和缺键不能冒充完成，拒绝时清除旧成功缓存。合法`true/false`和既有pass/fail/unknown含义保持；CLI原严格类型门不变。真实算子、隔离新包和可见界面验收见`runtime/audit/uv-software-closeout-20261117-v001/`，实现身份由当前`uv describe`取得。
+2026-11-17当前工作区为**UV0.8.7 / CLI0.88.0**。GUI磁盘报告读取器在聚合前要求每个样本`complete`为明确布尔值；`1`、`1.0`、字符串、列表、对象、null和缺键不能冒充完成，拒绝时清除旧成功缓存。合法`true/false`和既有pass/fail/unknown含义保持；CLI原严格类型门不变。真实算子、隔离新包和可见界面验收见`work/audit/<batch>/`，实现身份由当前`uv describe`取得。
 
-2026-11-16的**UV0.8.6 / CLI0.88.0**新增`generate.methods=["SMART_REPAIR"]`，对SMART完整逐chart精检后，仅用可分离种子的桥边切开支持的开放边界扇，局部自由ABF重展；仅三角面，拒绝固定UV/锁面和硬cut/join约束，不支持的折叠与预算不足明确拒绝。它不负责微岛合并。修复scratch大世界位移的float32窄面压塌及密度面积精度；内部取消传播，旧SMART/SMART_ABF语义保持。公共完整P02、冷重开、20坏chart/预算/约束/闭合fan/UI operator回归见`runtime/audit/uv-residual-repair-20261116-v001/`。0.8.5报告缺失证据拒绝、0.8.4批量精确资格及全部既有保护保持；旧冻结包不变，未全局安装或发布。
+2026-11-16的**UV0.8.6 / CLI0.88.0**新增`generate.methods=["SMART_REPAIR"]`，对SMART完整逐chart精检后，仅用可分离种子的桥边切开支持的开放边界扇，局部自由ABF重展；仅三角面，拒绝固定UV/锁面和硬cut/join约束，不支持的折叠与预算不足明确拒绝。它不负责微岛合并。修复scratch大世界位移的float32窄面压塌及密度面积精度；内部取消传播，旧SMART/SMART_ABF语义保持。公共完整P02、冷重开、20坏chart/预算/约束/闭合fan/UI operator回归见`work/audit/<batch>/`。0.8.5报告缺失证据拒绝、0.8.4批量精确资格及全部既有保护保持；旧冻结包不变，未全局安装或发布。
 
 UV实现身份包含16个CLI文件（含`uv_saved_protection.py`）、完整UV生产Python模块和规定的共享Geometry文件；身份表不是完整依赖集。离线AI/CLI入口仍需完整生产CLI树、匹配addon、运行时Schema与LICENSE/NOTICE，不只复制这16项。
 
-同日0.8.2实现`959f4aa633339b23f89242bd0bbf23a29189b884b09b51f52cf1815fc6377d4e`已验显式EXCLUSIVE复用规模化：按layout与精确三点建类，保原始pair计数、同岛折叠及组外碰撞；边界逐数值岛完整性检查后精确去重，settings只在单次解析内复用岛/坐标。真实188420tri/11123岛/18复用组copy/settings及冷重开通过，原UV/pin保持。`usage=None`、TILED和空组保旧路径；面积不承诺与旧浮点裁剪顺序逐位相同，`exact_clips`是历史候选计数别名。原证据见`runtime/audit/uv-reuse-scaling-20261116-v001/`。
+同日0.8.2实现`959f4aa633339b23f89242bd0bbf23a29189b884b09b51f52cf1815fc6377d4e`已验显式EXCLUSIVE复用规模化：按layout与精确三点建类，保原始pair计数、同岛折叠及组外碰撞；边界逐数值岛完整性检查后精确去重，settings只在单次解析内复用岛/坐标。真实188420tri/11123岛/18复用组copy/settings及冷重开通过，原UV/pin保持。`usage=None`、TILED和空组保旧路径；面积不承诺与旧浮点裁剪顺序逐位相同，`exact_clips`是历史候选计数别名。原证据见`work/audit/<batch>/`。
 
-历史0.8.1接入（同日）：公共CLI0.88.0；Blender5.2.1 LTS / 9e2066aef7ef，当时实现为`0dce1af8b43da1852382d363a6d52abd69f336a3da8c1c151478dd959af44d87`。它在0.8.0的SLIM、显式接缝辅助与Lightmap UV2上修复完整数值检查未通过仍报告ready的问题。接入前29个代码/manifest文件均与冻结0.8.0基线一致，只应用4个已验文件，接入后29项与0.8.1候选一致；真实根CLI新作业/独立重开通过，备份与结果见`runtime/audit/uv-081-integration-20261116-v001/`。独立0.8.1三包仍在`runtime/audit/uv-080-delivery-20261115-v001/`，旧0.7.3/0.7.5包和冻结字节保持。没有全局安装或替换用户当前GUI模块，源码、ZIP与当前启用模块分别核对；以实际入口`uv describe`为准。已有能力按原证据有界复用，各阶段不互相代签质量。
+历史0.8.1接入（同日）：公共CLI0.88.0；Blender5.2.1 LTS / 9e2066aef7ef，当时实现为`0dce1af8b43da1852382d363a6d52abd69f336a3da8c1c151478dd959af44d87`。它在0.8.0的SLIM、显式接缝辅助与Lightmap UV2上修复完整数值检查未通过仍报告ready的问题。接入前29个代码/manifest文件均与冻结0.8.0基线一致，只应用4个已验文件，接入后29项与0.8.1候选一致；真实根CLI新作业/独立重开通过，备份与结果见`work/audit/<batch>/`。独立0.8.1三包仍在`work/audit/<batch>/`，旧0.7.3/0.7.5包和冻结字节保持。没有全局安装或替换用户当前GUI模块，源码、ZIP与当前启用模块分别核对；以实际入口`uv describe`为准。已有能力按原证据有界复用，各阶段不互相代签质量。
 
-既有人工展开修正：ANGLE_BASED/CONFORMAL不再自动按55°加缝；源seam/边界和must_cut/must_not_cut仍适用，SMART/SMART_ABF继续自动路线。公共折面7项结果、独立重开/源保护已验，不代签角色语义质量。重点密度没有新增generate字段：已有候选可用settings→edit density→pack(scale=false)→CONFIGURED_TARGETS；三岛409.6/819.2 px/m机制实测通过。仅设置规则会保持UV不变并报告目标偏差，这是预期行为。历史机制范围见[审计与现行计划](../../runtime/audit/uv-plan-audit-20261113-v001/REPORT.md)，后续实证不可混作当时已验。
+既有人工展开修正：ANGLE_BASED/CONFORMAL不再自动按55°加缝；源seam/边界和must_cut/must_not_cut仍适用，SMART/SMART_ABF继续自动路线。公共折面7项结果、独立重开/源保护已验，不代签角色语义质量。重点密度没有新增generate字段：已有候选可用settings→edit density→pack(scale=false)→CONFIGURED_TARGETS；三岛409.6/819.2 px/m机制实测通过。仅设置规则会保持UV不变并报告目标偏差，这是预期行为。历史机制范围见[审计与现行计划](../../work/audit/<batch>/)，后续实证不可混作当时已验。
 
-2026-11-15接续状态：D01–D11的领域学习与有限机制实作阶段已收束，生产用途的未验项仍分别保留；真实AAA静态角色已推进至RE3完整22对象/157039tri组合。其中Body/Skin/Button三项35384tri共用新2K页，29岛、净65.251025%，Face/Props/发眼保原映射。原图迁移保护原作者岛形和局部采样分布，仅新层5loops修复量化细缝；原双UV不改，真实RGB迁移、独立重开与原生补审已完成。低畸变新绘制UV与保原颜色的迁移布局分别选路，不以整岛面积保持代替局部预算。详见现有技能`references/exchange-and-delivery.md`及[静态角色阶段报告](../../runtime/audit/uv-aaa-fullasset-20261115-v001/REPORT.md)。
+2026-11-15接续状态：D01–D11的领域学习与有限机制实作阶段已收束，生产用途的未验项仍分别保留；真实AAA静态角色已推进至RE3完整22对象/157039tri组合。其中Body/Skin/Button三项35384tri共用新2K页，29岛、净65.251025%，Face/Props/发眼保原映射。原图迁移保护原作者岛形和局部采样分布，仅新层5loops修复量化细缝；原双UV不改，真实RGB迁移、独立重开与原生补审已完成。低畸变新绘制UV与保原颜色的迁移布局分别选路，不以整岛面积保持代替局部预算。详见现有技能`references/exchange-and-delivery.md`及[静态角色阶段报告](../../work/audit/<batch>/)。
 
-旧0.7.5稳定交付仍位于`runtime/audit/uv-current-delivery-20261115-v001/`。0.8.1先完成精确ZIP/公开operator/冷读/匹配CLI验收，2026-11-16又在私有GUI实际选择SLIM、点击建议与角度/锐边标缝、生成候选、辅助UV2创建/同名拒绝/显式覆盖，并通过Ctrl+S、独立冷读与正常退出，详`runtime/audit/uv-ui-acceptance-20261116-v001/REPORT.md`。受控立方体只验控件，不作AAA质量基准。插件GUI独立于CLI。商业原模型、贴图和本机审计不随软件ZIP分发。全部近景、Normal/TBN、完整动作和游戏引擎验收不因此通过。
+旧0.7.5稳定交付仍位于`work/audit/<batch>/`。0.8.1先完成精确ZIP/公开operator/冷读/匹配CLI验收，2026-11-16又在私有GUI实际选择SLIM、点击建议与角度/锐边标缝、生成候选、辅助UV2创建/同名拒绝/显式覆盖，并通过Ctrl+S、独立冷读与正常退出，详`work/audit/<batch>/`。受控立方体只验控件，不作AAA质量基准。插件GUI独立于CLI。商业原模型、贴图和本机审计不随软件ZIP分发。全部近景、Normal/TBN、完整动作和游戏引擎验收不因此通过。
 
 真实AAA对照复用影心原LOD0主头＋耳部7930tri、相同既有边界和4K新棋盘。SLIM（10迭代、防翻转）得到12岛、净64.0077566%、面积加权拉伸p95=1.419842/max=3.956058，零重叠/反向/越界且独立重开保护通过；既有ANGLE_BASED为68.773258%、p95=1.194086/max=2.538984。本例保留ANGLE_BASED，SLIM仅作为可选候选，不按算法名称自动选优，不把硬门通过解释为画质改善。实际排布和棋盘见本轮`aaa/UV-method-comparison.png`与`aaa/checker-method-comparison.png`。
 
@@ -63,7 +63,7 @@ VIEWPORT使用实际视口求值图，隐藏目标拒绝。RENDER由临时Render
 
 完整报告逐帧记录形态键状态、实际三角数、世界几何/UV指纹、指标和用途检查。完成与异常路径均恢复帧/子帧、窗口上下文、相机、引擎、分辨率及相关渲染开关；报告核对controls_before/after。compact保留求值模式、三角数、完整性和未验边界。批量只允许全部样本完整pass进入后续审阅/复用，并交叉核对目标/UV层、模式、三角数、预算、完整性、用途和恢复证明。0.8.4支持EXCLUSIVE或显式CANDIDATE_EXACT；后者还要求reuse_used=true、候选一致、有序目标一致、finite_numeric_values_no_tolerance比较、每对象有效且相等的base/evaluated SHA、match=true/first_mismatch=null，以及非空、成员合法且跨样本一致的reuse_groups。缺证据、fail或unknown不能作为通过。GUI实时多帧检查未支持，应先保存明确工作快照再通过CLI检查。
 
-M5a 是求值表面先行切片；当前生产已继续 integrity/diagnostics/panel/jobs，最终冻结与 F01–F28 终验仍待完成。证据见[M5a报告](../../runtime/audit/uv-development-20261113-m5-v001/REPORT.md)。
+M5a 是求值表面先行切片；当前生产已继续 integrity/diagnostics/panel/jobs，最终冻结与 F01–F28 终验仍待完成。证据见[M5a报告](../../work/audit/<batch>/)。
 
 ## M5：完整性、diagnostics、面板与作业
 
@@ -73,7 +73,7 @@ M5a 是求值表面先行切片；当前生产已继续 integrity/diagnostics/pa
 
 面板后台作业监控只读显式选择的 `uv.run`/`uv.inspect` 作业 `status.json`（批量用 CLI `job wait/status`）；persistent timer 在切换文件后继续显示 job id/state/阶段/耗时/心跳，OSError 只做有界重试。状态/进度不是 UV 质量或当前工作区通过。当前姿态棋盘是 frozen VIEWPORT 求值快照；`surface_report`只读不超过128MiB的保存盘`uv-report.json`，要求当前文件SHA匹配、样本完整、controls restored、用途一致；CANDIDATE_EXACT通过样本须有候选与有限精确身份。读取FINISHED不代表表面通过，fail/unknown原样显示；dirty工作区不算通过。报告只存在当前进程内，保存后须重新检查，独立重开后重新加载。配置渲染器置换/自适应细分仍未认证。
 
-0.7.3将“停止查看”固定在进度信息之前，避免阶段、耗时或心跳行变化推动操作位置；停止查看后主动刷新所有3D视图。该动作只清除本地监视和timer，不发送后台取消请求。真实运行期间的界面接续证据与限制见`runtime/audit/uv-job-monitor-20261114-v002/REPORT.md`；独立GUI直接用公开操作符接入真实status路径与文件选择器交互分别记录。
+0.7.3将“停止查看”固定在进度信息之前，避免阶段、耗时或心跳行变化推动操作位置；停止查看后主动刷新所有3D视图。该动作只清除本地监视和timer，不发送后台取消请求。真实运行期间的界面接续证据与限制见`work/audit/<batch>/`；独立GUI直接用公开操作符接入真实status路径与文件选择器交互分别记录。
 
 ## M3a：源UV到新目标候选的受保护迁移
 
@@ -108,7 +108,7 @@ PROJECTED只支持显式域、近共面单层、完整裁剪投影覆盖及目�
 
 报告明确给`vertex_domain`、两侧总点/引用点/未引用点数量、排除索引（有界列表附truncated）与`mapped_vertex_count`。原`checks.vertex_bijection`仍表示全Mesh；有未映射孤点时保持false，同时`face_referenced_vertex_bijection=true`、`full_vertex_bijection_required=false`，不能把较小域的通过称为全顶点对应。全部几何/非目标保护、有限值/退化准入、完整角点/面映射和绕序、单位/资源绑定保持原规则。
 
-真实触发输入是本地原生T恤1932点与OBJ工作网格1931点，额外孤点186不属于任何面，1864面/7456角点已证完整对应。实际公共入口与求值结果以`runtime/audit/uv-garment-native-20261114-v001/REPORT.md`为准；纯数学测试不代签原生接回/最终表面或生产用途。
+真实触发输入是本地原生T恤1932点与OBJ工作网格1931点，额外孤点186不属于任何面，1864面/7456角点已证完整对应。实际公共入口与求值结果以`work/audit/<batch>/`为准；纯数学测试不代签原生接回/最终表面或生产用途。
 
 ### 事务、源保护与GUI接续
 
@@ -118,7 +118,7 @@ PROJECTED只支持显式域、近共面单层、完整裁剪投影覆盖及目�
 
 面板独立“从已有UV迁移到新候选”区只在Object Mode记录/执行，不偷偷退出Edit：先活动源与UV→记录源身份，再选择目标（排除源）→生成草稿，核对显示的源层/目标/模式/范围后执行。生成草稿前确认源记录未变；执行只使用已存manifest，不从后来选择或控件重建，core成功才切新candidate，失败保持旧candidate。JSON导入/导出只记录完整请求，不执行；导入保留原源/目标绑定，EXPLICIT或多源/分域请求不自动重绑，导出不覆盖已有文件。成功后可按原候选检查/采用/原生编辑流程接续；Undo/Redo的数据和记录仍以Object事务一起恢复。
 
-可复查依据：[核心正反例](../../runtime/audit/uv-development-20261113-m3-v001/core-results.json)、[世界变换/单位/共享预算补验](../../runtime/audit/uv-development-20261113-m3-v001/core-followup-results.json)、[数学修正针对复核](../../runtime/audit/uv-development-20261113-m3-v001/review/final-results.json)、[接线审查及修正回读](../../runtime/audit/uv-development-20261113-m3-v001/review/INTEGRATION.md)、[源保护独立冷读](../../runtime/audit/uv-development-20261113-m3-v001/review/cold-runtime/README.md)、[真实沙发源/目标独立核对](../../runtime/audit/uv-development-20261113-m3-v001/sofa-runtime/independent-result.json)。案例只证明所列输入与支持边界，不外推新用途；M3b的独立交换/烘焙证据见下节，M4/M5保留。
+可复查依据：[核心正反例](../../work/audit/<batch>/)、[世界变换/单位/共享预算补验](../../work/audit/<batch>/)、[数学修正针对复核](../../work/audit/<batch>/)、[接线审查及修正回读](../../work/audit/<batch>/)、[源保护独立冷读](../../work/audit/<batch>/)、[真实沙发源/目标独立核对](../../work/audit/<batch>/)。案例只证明所列输入与支持边界，不外推新用途；M3b的独立交换/烘焙证据见下节，M4/M5保留。
 
 ## M3b：格式交换与贴图迁移协作
 
@@ -130,7 +130,7 @@ UV、交换和材质/烘焙分别验收，沿用公共exchange.export、texture.
 | FBX静态 | 所测两层名称、坐标保持，角点误差0 | 不据此保证shader、任意modifier/骨骼/动画等价 |
 | OBJ静态 | 只保留活动的一层 | 明确不支持多UV；不能把导出成功解释为全部UV保留 |
 
-本批对4tri控制件及148480tri青花求值静态表面实际导出并独立读取；删除GLB第二UV和修改单U负例能被检查发现。层名、排序、active_render及贴图采样的texCoord必须显式映射，不能仅看“有两个UV”。证据在runtime/audit/uv-development-20261113-m3-v001/downstream-review/exchange-runtime。
+本批对4tri控制件及148480tri青花求值静态表面实际导出并独立读取；删除GLB第二UV和修改单U负例能被检查发现。层名、排序、active_render及贴图采样的texCoord必须显式映射，不能仅看“有两个UV”。证据在work/audit/<batch>/。
 
 STATIC交换现按evaluated Object.material_slots物化实际有效材质，再对实际导出对象检查GLTF_PBR支持范围。不能仅读取Mesh.materials，因为OBJECT链接可覆盖它；写永久mesh必须取material.original，不能挂depsgraph临时材质。红/蓝OBJECT和白DATA公共回归保留正确颜色与两层UV；复杂青花显式UV/normal/coat超现有窄GLTF_PBR时明确UNSUPPORTED，不再静默导出白材质。此修复没有扩大PBR子集。
 
@@ -214,7 +214,7 @@ delta_px定义位移方向和距离，不保证边界最短间距等于位移长
 
 排布按像素比例工作，预留图边后采用短边内接方形区域，长方图长边尚未充分利用；有固定岛时不整体居中或事后fit。原生间距只是求解提示，不保证可行布局。未选岛不保证作为原生障碍：实证中未选逐值不动仍可与选中结果产生正面积重叠。最终对整个候选检查三角形、碰撞、真实像素gap、边界、密度与用途；FINISHED、candidate_edited或文件写出均不代表排布通过。普通quality fail保留明确fail候选供修正，不能自动采用。
 
-0.7.5按实际Blender5.2行为区分全自由与选中锁岛：全自由时FRACTION双边累计，单边传入`(gap_px+1)/(2*span)`；有选中固定岛时保守传入`(gap_px+1)/span`。保留总计1px安全量，0请求也不承诺实际零距。gap/border字段是最低值，混合锁/自由可超间距；edit原生外边padding叠加请求border，生成后fit另查实测，二者不保证完全相同。未选pin不是参与的选中锁岛；partial全局碰撞仍由完整检查拒绝。探针、7条件pack回归、声明复用别名精确保留、D06同输入生成/编辑与求值证据在`runtime/audit/uv-efficiency-20261115-v001/`。同cuts生成覆盖38.30%→54.54%只属本例，不能代签细小侧面采样、全车或引擎质量。
+0.7.5按实际Blender5.2行为区分全自由与选中锁岛：全自由时FRACTION双边累计，单边传入`(gap_px+1)/(2*span)`；有选中固定岛时保守传入`(gap_px+1)/span`。保留总计1px安全量，0请求也不承诺实际零距。gap/border字段是最低值，混合锁/自由可超间距；edit原生外边padding叠加请求border，生成后fit另查实测，二者不保证完全相同。未选pin不是参与的选中锁岛；partial全局碰撞仍由完整检查拒绝。探针、7条件pack回归、声明复用别名精确保留、D06同输入生成/编辑与求值证据在`work/audit/<batch>/`。同cuts生成覆盖38.30%→54.54%只属本例，不能代签细小侧面采样、全车或引擎质量。
 
 声明复用组参与pack时必须选中该组全部成员，或整组不选；任一成员固定会固定其代表岛。原生只排代表布局，再恢复组内对应坐标，保持声明复用足迹和数字切口。TILED不使用图集pack，应使用密度、方向和明确重复布局。
 
@@ -321,7 +321,7 @@ manifest字段是`uv_batch_version="1.0"`、`policy`、`steps`。policy沿用公
 
 实际验证包括M1的source_open取消，以及M4批次第二项apply期间取消、四个已捕获自有进程退出和成功项恢复复用；M4本例取消到终态约0.389秒。保存中取消、任意原生长求解点和断电恢复未验，不能据此承诺普遍响应时间。既有UDIM的显式tile成员按上节保护和校验；序列/movie及未支持动态模板的拒绝不代表最终需求取消。
 
-M4性能样例使用独立受控曲面：8192/65536/262144三角的copy_uv均全量检查通过；262144三角ANGLE_BASED展开约211.8秒，采样RSS峰约1.96GB，全部1091515个候选三角对完成检查且无相交，检查预算不足时明确unknown。四部件32768三角原UV因世界缩放导致约11.39%密度偏差而fail，原输入联合展开约37.4秒后pass、最小岛间距34.36px；未修改网格或放宽5%门槛。上述单次机器实测及棋盘图只证明这些输入，非任意生成模型或新用途批准。真实1485062三角角色带 shape keys 的旧版公共 inspect 曾明确 UNSUPPORTED，这是历史证据；当前 0.7 生产已支持 local single-user shape 写路径，父 public-integration 的 shape generate+冷读 job `227058ef5c11453297048bbfa550f360` 报告通过。该通过不外推所有 rig 控制类型或最终求值表面，也不以移除形态键绕过；最终仍以冻结源码与 `uv describe` 为准。详细时间口径、负例及恢复证据见[M4报告](../../runtime/audit/uv-development-20261113-m4-v001/REPORT.md)。
+M4性能样例使用独立受控曲面：8192/65536/262144三角的copy_uv均全量检查通过；262144三角ANGLE_BASED展开约211.8秒，采样RSS峰约1.96GB，全部1091515个候选三角对完成检查且无相交，检查预算不足时明确unknown。四部件32768三角原UV因世界缩放导致约11.39%密度偏差而fail，原输入联合展开约37.4秒后pass、最小岛间距34.36px；未修改网格或放宽5%门槛。上述单次机器实测及棋盘图只证明这些输入，非任意生成模型或新用途批准。真实1485062三角角色带 shape keys 的旧版公共 inspect 曾明确 UNSUPPORTED，这是历史证据；当前 0.7 生产已支持 local single-user shape 写路径，父 public-integration 的 shape generate+冷读 job `227058ef5c11453297048bbfa550f360` 报告通过。该通过不外推所有 rig 控制类型或最终求值表面，也不以移除形态键绕过；最终仍以冻结源码与 `uv describe` 为准。详细时间口径、负例及恢复证据见[M4报告](../../work/audit/<batch>/)。
 
 ## 当前实证与边界
 
@@ -331,40 +331,40 @@ M2-v003接入了当时的13动作和受检recipe绑定。完整core入口验证�
 
 M2-v004在原13动作上新增sync_pins和受限FACES split，合计15动作。证据覆盖原生pin增删/显式非锁重锚、选区外差异与锁面保护拒绝、pin/lock保旧锚；split的W/H位移、旧切口保护、硬约束回滚以及碰撞/越界fail候选保留。公共CLI的pin-sync、split及真实沙发pin-sync样例有独立重开证据；真实GUI pin-sync/split的Undo/Redo记录也已独立逐值比较。最终接缝差集与约束入口修订另过后台反例和公共入口验证，最终公共切分UV/检查与已观察GUI结果精确一致，真实沙发同步前后全网格保护精确保持；GUI操作发生在这两处最终修订前，不冒称最终源码全量GUI重测。
 
-M2-v005完成本地0.3.0的copy_uv/seams/settings和orient/stack/unstack，以及重点密度、方向、声明复用、TILED、消费者与既有UDIM资源保护。最终冻结身份的公共CLI结果14例符合预期（含明确拒绝与待修fail候选）；真实GUI orient/TILED规则Undo/Redo及冷读精确恢复；usage_binding与原manifest绝对密度独立门的两项审查修正由9项有界补验闭合。旧核心/保护证据按v001–v004适用范围复用；rotate/scale/mirror/align/straighten/density/lock七动作原先只有核心实证而缺逐项公共入口，本批已另补真实公共成功与独立期望UV逐值/未选/旧层保护冷读。沿用原参数，rotate/scale/mirror/align/density五项仍quality.fail，straighten/lock为pass，不因操作完成重标质量，也未全量重测其余旧动作。M2a/M2b已完成，逐项依据见[M2验收矩阵](../../runtime/audit/uv-development-20261113-m2-v005/M2-ACCEPTANCE.md)；[REPORT.md](../../runtime/audit/uv-development-20261113-m2-v005/REPORT.md)与[RESUME.md](../../runtime/audit/uv-development-20261113-m2-v005/RESUME.md)为本批最终汇总与恢复入口。
+M2-v005完成本地0.3.0的copy_uv/seams/settings和orient/stack/unstack，以及重点密度、方向、声明复用、TILED、消费者与既有UDIM资源保护。最终冻结身份的公共CLI结果14例符合预期（含明确拒绝与待修fail候选）；真实GUI orient/TILED规则Undo/Redo及冷读精确恢复；usage_binding与原manifest绝对密度独立门的两项审查修正由9项有界补验闭合。旧核心/保护证据按v001–v004适用范围复用；rotate/scale/mirror/align/straighten/density/lock七动作原先只有核心实证而缺逐项公共入口，本批已另补真实公共成功与独立期望UV逐值/未选/旧层保护冷读。沿用原参数，rotate/scale/mirror/align/density五项仍quality.fail，straighten/lock为pass，不因操作完成重标质量，也未全量重测其余旧动作。M2a/M2b已完成，逐项依据见[M2验收矩阵](../../work/audit/<batch>/)；[REPORT.md](../../work/audit/<batch>/)与[RESUME.md](../../work/audit/<batch>/)为本批最终汇总与恢复入口。
 
 真实35岛沙发仅对支架一岛60面/240角点执行+180°定向并绑定方向规则；完整31088三角无无效/重叠，原用途数值pass，成功公共输出独立冷读精确，未选与原始数据保护保持。此操作不以降低拉伸为目标，最小gap从约35.259px变为24.593px仍满足本模型16px门。实际棋盘和布局视觉判断另见本批父线程visual-review.json；本说明不代签新的用户视觉接受，也不把基础网格结果外推最终求值表面或代表姿态。
 
-M3条件迁移与下游烘焙协作已完成本阶段实证，详见[M3报告](../../runtime/audit/uv-development-20261113-m3-v001/REPORT.md)与[验收矩阵](../../runtime/audit/uv-development-20261113-m3-v001/M3-ACCEPTANCE.md)。干净曲面产品v002贯通公共UV/EMIT/NORMAL/material/render及材质后copy_uv，父实际前后图观察与独立字节核验通过；青花仍是最终表面UV失败隔离。M4批量恢复与高密性能边界已完成本阶段实证，详见[M4验收矩阵](../../runtime/audit/uv-development-20261113-m4-v001/M4-ACCEPTANCE.md)；M5 的完整性/诊断/面板/作业监控已接入当前生产，最终类别覆盖、最终表面/姿态、主技能与精确安装包仍待父冻结验收。精确局部避障、长方图高利用率、任意割缝与零距离切分等边界按目标继续处理，不以已有接口数量替代用户验收。UDIM本期只识别与保护、不制作；Trim Sheet、生产几何修复、跨文件实时图集不加入本期。冻结F01–F28仍全部保留，不以测试次数、动作数量或单个样例通过缩减范围：
+M3条件迁移与下游烘焙协作已完成本阶段实证，详见[M3报告](../../work/audit/<batch>/)与[验收矩阵](../../work/audit/<batch>/)。干净曲面产品v002贯通公共UV/EMIT/NORMAL/material/render及材质后copy_uv，父实际前后图观察与独立字节核验通过；青花仍是最终表面UV失败隔离。M4批量恢复与高密性能边界已完成本阶段实证，详见[M4验收矩阵](../../work/audit/<batch>/)；M5 的完整性/诊断/面板/作业监控已接入当前生产，最终类别覆盖、最终表面/姿态、主技能与精确安装包仍待父冻结验收。精确局部避障、长方图高利用率、任意割缝与零距离切分等边界按目标继续处理，不以已有接口数量替代用户验收。UDIM本期只识别与保护、不制作；Trim Sheet、生产几何修复、跨文件实时图集不加入本期。冻结F01–F28仍全部保留，不以测试次数、动作数量或单个样例通过缩减范围：
 
 F01多类与双流程；F02生命周期；F03旧效果保护；F04几何诊断交接；F05单图/多UV/UDIM保护；F06全约束接续；F07独占与声明复用；F08同拓扑/条件异拓扑；F09完整常用岛工具；F10三维自动接缝及手改；F11平铺；F12贴图外观迁移协作；F13局部至多文件增量；F14用途质量/重点区；F15有限尝试/失败隔离；F16最终表面/姿态；F17精简面板；F18独立与联合排布；F19配方；F20棋盘布局验收；F21高密质量优先；F22广泛研究；F23开源分发准备；F24同工程图集边界；F25首产品闭环；F26首绘制烘焙；F27研究后确认门槛/样例许可；F28暂无额外补充。
 
 证据与实际请求：
 
-- [M1报告](../../runtime/audit/uv-development-20261113-m1-v001/REPORT.md)
-- [使用与恢复](../../runtime/audit/uv-development-20261113-m1-v001/RESUME.md)
-- [公共入口实测](../../runtime/audit/uv-development-20261113-m1-v001/evidence/cli-final-checks/REPORT.md)
-- [M2-v003完整pack集成](../../runtime/audit/uv-development-20261113-m2-v003/pack-integration/README.md)
-- [M2-v003 GUI记录独立比较](../../runtime/audit/uv-development-20261113-m2-v003/ui-evidence-result.json)
-- [M2-v003沙发relax用途拒绝](../../runtime/audit/uv-development-20261113-m2-v003/sofa-relax-adopt-rejected-result.json)
-- [M2-v003最终公共入口核验](../../runtime/audit/uv-development-20261113-m2-v003/final-cli-verification.json)
-- [M2-v004报告](../../runtime/audit/uv-development-20261113-m2-v004/REPORT.md)
-- [M2-v004固定点同步核心反例](../../runtime/audit/uv-development-20261113-m2-v004/pin-integration-result.json)
-- [M2-v004切分模块与核心集成](../../runtime/audit/uv-development-20261113-m2-v004/split-tests/README.md)
-- [M2-v004公共CLI及独立重开样例](../../runtime/audit/uv-development-20261113-m2-v004/public-cli-result.json)
-- [M2-v004 GUI撤销恢复独立比较](../../runtime/audit/uv-development-20261113-m2-v004/gui-closure/events-result.json)
-- [M2-v004最终公共入口](../../runtime/audit/uv-development-20261113-m2-v004/final-cli-result.json)
-- [M2-v004审查后反例](../../runtime/audit/uv-development-20261113-m2-v004/guard-regression-result.json)
-- [M2-v005本批最终报告](../../runtime/audit/uv-development-20261113-m2-v005/REPORT.md)
-- [M2-v005本批恢复入口](../../runtime/audit/uv-development-20261113-m2-v005/RESUME.md)
-- [M2a/M2b逐项验收矩阵](../../runtime/audit/uv-development-20261113-m2-v005/M2-ACCEPTANCE.md)
-- [M2-v005最终公共CLI](../../runtime/audit/uv-development-20261113-m2-v005/public-cli/results.json)
-- [M2-v005七个旧动作公共入口闭合](../../runtime/audit/uv-development-20261113-m2-v005/public-legacy-closure/REPORT.md)
-- [M2-v005七动作独立期望与保护核对](../../runtime/audit/uv-development-20261113-m2-v005/public-legacy-closure/independent-result.json)
-- [M2-v005最终GUI与独立冷读](../../runtime/audit/uv-development-20261113-m2-v005/ui-final-verification.json)
-- [M2-v005审查修正补验](../../runtime/audit/uv-development-20261113-m2-v005/followup-results.json)
-- [M2-v005真实沙发接续](../../runtime/audit/uv-development-20261113-m2-v005/sofa-final/REPORT.md)
-- [M2-v005 UI分片与验证边界](../../runtime/audit/uv-development-20261113-m2-v005/ui-shard/README.md)
-- [M2-v005既有UDIM资源闭合](../../runtime/audit/uv-development-20261113-m2-v005/udim-resources/REPORT.md)
-- [M2-v005消费者绑定识别](../../runtime/audit/uv-development-20261113-m2-v005/consumer-shard/REPORT.md)
-- [完整开发任务书](../../runtime/audit/uv-predevelopment-20261112-v003/handoff/architecture-and-work-orders.md)
+- [M1报告](../../work/audit/<batch>/)
+- [使用与恢复](../../work/audit/<batch>/)
+- [公共入口实测](../../work/audit/<batch>/)
+- [M2-v003完整pack集成](../../work/audit/<batch>/)
+- [M2-v003 GUI记录独立比较](../../work/audit/<batch>/)
+- [M2-v003沙发relax用途拒绝](../../work/audit/<batch>/)
+- [M2-v003最终公共入口核验](../../work/audit/<batch>/)
+- [M2-v004报告](../../work/audit/<batch>/)
+- [M2-v004固定点同步核心反例](../../work/audit/<batch>/)
+- [M2-v004切分模块与核心集成](../../work/audit/<batch>/)
+- [M2-v004公共CLI及独立重开样例](../../work/audit/<batch>/)
+- [M2-v004 GUI撤销恢复独立比较](../../work/audit/<batch>/)
+- [M2-v004最终公共入口](../../work/audit/<batch>/)
+- [M2-v004审查后反例](../../work/audit/<batch>/)
+- [M2-v005本批最终报告](../../work/audit/<batch>/)
+- [M2-v005本批恢复入口](../../work/audit/<batch>/)
+- [M2a/M2b逐项验收矩阵](../../work/audit/<batch>/)
+- [M2-v005最终公共CLI](../../work/audit/<batch>/)
+- [M2-v005七个旧动作公共入口闭合](../../work/audit/<batch>/)
+- [M2-v005七动作独立期望与保护核对](../../work/audit/<batch>/)
+- [M2-v005最终GUI与独立冷读](../../work/audit/<batch>/)
+- [M2-v005审查修正补验](../../work/audit/<batch>/)
+- [M2-v005真实沙发接续](../../work/audit/<batch>/)
+- [M2-v005 UI分片与验证边界](../../work/audit/<batch>/)
+- [M2-v005既有UDIM资源闭合](../../work/audit/<batch>/)
+- [M2-v005消费者绑定识别](../../work/audit/<batch>/)
+- [完整开发任务书](../../work/audit/<batch>/)

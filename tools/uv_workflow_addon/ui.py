@@ -21,10 +21,10 @@ def _label(value):
 
 def _execute(context, request):
     """Expose real phases during synchronous work; do not invent percentages."""
-    labels={'solve':'生成候选','checking':'检查重叠、间距与拉伸','local_edit':'处理局部编辑',
+    labels={'solve':'生成候选','checking':'检查重叠、间距与拉伸','local_edit':'处理局部编辑','micro_island_merge':'合并相邻微岛',
             'transfer_correspondence':'核对迁移对应','geometry_diagnostics':'定位基础网格问题',
             'generate':'准备候选','copy_uv':'复制UV','adopt':'采用候选','restore':'恢复编辑层',
-            'edit':'准备局部编辑','recipe':'检查用途配方','settings':'检查规则','seams':'更新接缝',
+            'edit':'准备局部编辑','pack':'整图排布','recipe':'检查用途配方','settings':'检查规则','seams':'更新接缝',
             'lightmap':'生成辅助Lightmap UV2','transfer':'准备迁移','inspect':'检查输入'}
     wm=context.window_manager
     wm.progress_begin(0,1)
@@ -176,7 +176,7 @@ class UVW_OT_capture_edit(bpy.types.Operator):
         if 'uvw_edit_selection' in s:del s['uvw_edit_selection']
         if not rec or context.mode!='EDIT_MESH':
             self.report({'ERROR'},'请先选定候选，再在编辑模式选择面或UV点');return {'CANCELLED'}
-        domain='ISLANDS' if self.whole_islands or s.uvw_edit_action in ('stack','unstack','orient') else s.uvw_edit_domain
+        domain='ISLANDS' if self.whole_islands or s.uvw_edit_action in ('stack','unstack','orient','merge_micro_islands') else s.uvw_edit_domain
         selection={};loop_vertices={};captured=False
         try:
             if domain=='LOOPS' and s.tool_settings.use_uv_select_sync:
@@ -185,7 +185,7 @@ class UVW_OT_capture_edit(bpy.types.Operator):
                 if o.name not in rec['objects'] or o.type!='MESH':continue
                 active=o.data.uv_layers.active
                 if not active or active.name!=rec['layer']:
-                    raise ValueError('请先采用候选为编辑层，再记录选择：'+o.name)
+                    raise ValueError('请先在网格数据的 UV 贴图列表选中候选层，再记录选择：'+o.name)
                 bm=bmesh.from_edit_mesh(o.data);bm.faces.ensure_lookup_table();bm.faces.index_update();bm.verts.index_update()
                 if domain=='LOOPS':
                     rows=[(f.index,l.vert.index) for f in bm.faces for l in f.loops if l.uv_select_vert and f.select and not f.hide]
@@ -253,6 +253,7 @@ class UVW_OT_edit(bpy.types.Operator):
                 if not capture.get('edge_loops'):raise ValueError('请先记录活动面上的有向边')
                 action.update(edge_loops=capture['edge_loops'],angle_degrees=s.uvw_direction_angle)
             elif kind=='unstack':action['offset_px']=list(s.uvw_unstack_offset)
+            elif kind=='merge_micro_islands':action['threshold_px2']=s.uvw_micro_island_area
             elif kind=='stack':
                 draft=capture.get('stack_draft')
                 if not draft or draft['mirrored']!=s.uvw_stack_mirrored:raise ValueError('请按当前镜像设置重新记录移动岛和配对草稿')
@@ -1051,6 +1052,10 @@ class UVW_PT_panel(bpy.types.Panel):
                 capture=json.loads(s.get('uvw_edit_selection','{}'))
                 if capture.get('edge_loops'):edit.label(text=f'有向角点：{capture["edge_loops"][0]} → {capture["edge_loops"][1]}')
             elif kind=='stack':_draw_stack(edit,s)
+            elif kind=='merge_micro_islands':
+                edit.prop(s,'uvw_micro_island_area',text='微岛面积阈值（px²）')
+                edit.label(text='在 UV 贴图列表选中尚未采用的候选层')
+                edit.label(text='全选面后记录选择；合并并重排，检查通过才写入')
             elif kind=='unstack':
                 edit.prop(s,'uvw_unstack_offset',text='逐岛分离像素');edit.label(text='完整岛按排序依次乘以位移；更新复用声明')
             if kind in ('relax','unwrap'):edit.label(text='选面或整岛；保持选区和UV岛边界')
@@ -1088,7 +1093,7 @@ def register():
     bpy.types.Scene.uvw_height=bpy.props.IntProperty(name='新候选高度',default=2048,min=1,max=16384)
     bpy.types.Scene.uvw_status=bpy.props.StringProperty(name='状态',default='')
     bpy.types.Scene.uvw_edit_domain=bpy.props.EnumProperty(items=[('ISLANDS','面所在的完整岛','以选择的面定位完整UV岛'),('FACES','仅选中的面','其他面UV保持'),('LOOPS','仅选中的UV点','其他角点保持')])
-    bpy.types.Scene.uvw_edit_action=bpy.props.EnumProperty(items=[(k,label,'') for k,label in [('translate','平移'),('rotate','旋转'),('scale','缩放'),('mirror','镜像'),('align','对齐'),('straighten','拉直边链'),('density','匹配密度'),('pin','固定/释放UV点'),('lock','锁定/释放区域'),('relax','局部放松'),('unwrap','固定边界重展'),('stitch','成对缝合'),('pack','整岛排布'),('sync_pins','同步所选原生固定点'),('split','切分所选面并移动'),('orient','有向边整岛转向'),('stack','显式配对复用'),('unstack','解除复用并分离')]])
+    bpy.types.Scene.uvw_edit_action=bpy.props.EnumProperty(items=[(k,label,'') for k,label in [('translate','平移'),('rotate','旋转'),('scale','缩放'),('mirror','镜像'),('align','对齐'),('straighten','拉直边链'),('density','匹配密度'),('pin','固定/释放UV点'),('lock','锁定/释放区域'),('relax','局部放松'),('unwrap','固定边界重展'),('stitch','成对缝合'),('pack','整岛排布'),('sync_pins','同步所选原生固定点'),('split','切分所选面并移动'),('orient','有向边整岛转向'),('stack','显式配对复用'),('unstack','解除复用并分离'),('merge_micro_islands','合并微岛并排布')]])
     bpy.types.Scene.uvw_edit_delta=bpy.props.FloatVectorProperty(size=2,default=(0,0))
     bpy.types.Scene.uvw_edit_angle=bpy.props.FloatProperty(default=90)
     bpy.types.Scene.uvw_edit_scale=bpy.props.FloatVectorProperty(size=2,default=(1,1),min=0.000001)
@@ -1131,6 +1136,7 @@ def register():
     bpy.types.Scene.uvw_stack_mirrored=bpy.props.BoolProperty(default=False)
     bpy.types.Scene.uvw_stack_group=bpy.props.StringProperty(default='reuse_group')
     bpy.types.Scene.uvw_unstack_offset=bpy.props.FloatVectorProperty(size=2,default=(64,0))
+    bpy.types.Scene.uvw_micro_island_area=bpy.props.FloatProperty(default=64.0,min=.001,precision=2)
     bpy.types.Scene.uvw_transfer_open=bpy.props.BoolProperty(default=False)
     bpy.types.Scene.uvw_transfer_mode=bpy.props.EnumProperty(items=[('INDEXED','同拓扑索引对应','全部源面对应每个目标全部面'),('PROJECTED','受限表面投影','全源面投影到各目标全部面；分域请导入JSON')])
     bpy.types.Scene.uvw_transfer_candidate=bpy.props.StringProperty(default='')
@@ -1154,7 +1160,7 @@ def unregister():
                  'uvw_recipe_reference','uvw_recipe_p95','uvw_recipe_max','uvw_recipe_density','uvw_recipe_border','uvw_recipe_gap',
                  'uvw_recipe_density_basis','uvw_settings_open','uvw_usage_mode','uvw_usage_reference','uvw_target_enabled',
                  'uvw_target_density','uvw_region_density','uvw_density_tolerance','uvw_direction_angle','uvw_direction_tolerance',
-                 'uvw_stack_mirrored','uvw_stack_group','uvw_unstack_offset',
+                 'uvw_stack_mirrored','uvw_stack_group','uvw_unstack_offset','uvw_micro_island_area',
                  'uvw_transfer_open','uvw_transfer_mode','uvw_transfer_candidate','uvw_transfer_width','uvw_transfer_height',
                  'uvw_transfer_distance','uvw_transfer_normal','uvw_transfer_uv_tolerance','uvw_transfer_budget'):
         if hasattr(bpy.types.Scene,name):delattr(bpy.types.Scene,name)

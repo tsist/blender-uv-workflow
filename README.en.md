@@ -22,7 +22,7 @@ The add-on uses only Python's standard library and Blender-provided `bpy`, `bmes
 
 The released production modules and skill text are unchanged from the validated local delivery. Local reports recorded 33 type cases, 7 integrity cases, 14 CLI regression tests, and visible GUI rejection/cache-reset/recovery. See [validation and reproduction limits](docs/VALIDATION.md).
 
-Historical `F:/Blender AI/...`, `runtime/audit/...`, and Wiki references in the skill point to local evidence that is not distributed. They are not install dependencies. Replace machine-specific example paths. No game assets, textures, private audit records, credentials, or user projects are included.
+Historical `<PROJECT_ROOT>/...`, `work/audit/<batch>/`, and Wiki references in the skill point to local evidence that is not distributed. They are not install dependencies. Replace machine-specific example paths. No game assets, textures, private audit records, credentials, or user projects are included.
 
 One character hand-quality repair remains stopped and incomplete. The RE3 2K normal-map result is limited to the tested static case. Cross-asset generalization and engine/TBN/mip/compression/LOD/full-PBR/animation production validation remain future work.
 

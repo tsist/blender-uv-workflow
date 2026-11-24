@@ -1037,6 +1037,23 @@ def _check_special_bone_coverage(owner, known, label):
                          (name, label))
 
 
+def _bone_rna_setting(bone, name):
+    value = getattr(bone, name)
+    if name not in {"bbone_custom_handle_start", "bbone_custom_handle_end"} or value is None:
+        return _rna_scalar(value)
+    owner = bone.id_data
+    if not isinstance(value, type(bone)) or value.id_data != owner:
+        _unsupported("Uncertified B-Bone handle owner or type on %s.%s" % (bone.name, name))
+    try:
+        path = value.path_from_id()
+        resolved = owner.path_resolve(path)
+    except (TypeError, ValueError) as exc:
+        _unsupported("Cannot resolve B-Bone handle on %s.%s: %s" % (bone.name, name, exc))
+    if resolved != value:
+        _unsupported("B-Bone handle path mismatch on %s.%s" % (bone.name, name))
+    return {"type": value.bl_rna.identifier, "owner": _identity(owner), "data_path": path}
+
+
 def _bone_rest_state(bone):
     _check_special_bone_coverage(bone, _BONE_REST_SETTINGS, "bone " + bone.name)
     row = {
@@ -1049,7 +1066,7 @@ def _bone_rest_state(bone):
     }
     for name in _BONE_REST_SETTINGS:
         if hasattr(bone, name):
-            row[name] = _rna_scalar(getattr(bone, name))
+            row[name] = _bone_rna_setting(bone, name)
     return row
 
 
@@ -1072,7 +1089,7 @@ def _pose_bone_state(pose_bone):
     }
     for name in _POSE_BONE_SETTINGS:
         if hasattr(pose_bone, name):
-            row[name] = _rna_scalar(getattr(pose_bone, name))
+            row[name] = _bone_rna_setting(pose_bone, name)
     return row
 
 

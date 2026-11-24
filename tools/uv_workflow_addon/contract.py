@@ -35,7 +35,8 @@ def normalize_edit(v, names):
             'stitch':({'pairs','limit_px','seam_mode'},set()),
             'sync_pins':(set(),set()),'split':({'delta_px'},set()),
             'orient':({'edge_loops','angle_degrees'},set()),
-            'stack':({'reference','pairs','mirrored','group_id'},set()),'unstack':({'offset_px'},set())}
+            'stack':({'reference','pairs','mirrored','group_id'},set()),'unstack':({'offset_px'},set()),
+            'merge_micro_islands':(set(),{'threshold_px2'})}
     kind=action.get('kind')
     if kind not in fields:fail('Unknown edit action')
     required,optional=fields[kind]
@@ -86,6 +87,13 @@ def normalize_edit(v, names):
             if type(action['no_flip']) is not bool:
                 fail('SLIM unwrap no_flip must be boolean')
             v['action']=action
+    if kind=='merge_micro_islands':
+        if len(names)!=1 or set(selection)!=set(names) or any(r['domain']!='ISLANDS' for r in selection.values()):
+            fail('Micro-island merge requires one target and complete island selection')
+        threshold=action.get('threshold_px2',64.0)
+        if not _number(threshold) or threshold<=0:
+            fail('Micro-island threshold_px2 must be finite and positive')
+        action['threshold_px2']=float(threshold)
     if kind=='pack':
         if any(r['domain']!='ISLANDS' for r in selection.values()):fail('Packing requires complete islands')
         if type(action['rotate']) is not bool or type(action['scale']) is not bool or action['pin_method']!='LOCKED':
@@ -290,8 +298,9 @@ def normalize(value):
     return v
 
 def describe():
-    return {"version": "0.8.8", "milestone": "Blender 5.3 candidate and packing compatibility", "operations": ["generate", "inspect", "validate", "adopt", "restore", "edit", "recipe", "copy_uv", "settings", "seams", "lightmap", "transfer"],
-            "edit_actions": ['translate','rotate','scale','mirror','align','straighten','density','pin','lock','relax','unwrap','stitch','pack','sync_pins','split','orient','stack','unstack'],
+    return {"version": "0.8.8", "milestone": "Protected micro-island merge and packing", "operations": ["generate", "inspect", "validate", "adopt", "restore", "edit", "recipe", "copy_uv", "settings", "seams", "lightmap", "transfer"],
+            "edit_actions": ['translate','rotate','scale','mirror','align','straighten','density','pin','lock','relax','unwrap','stitch','pack','sync_pins','split','orient','stack','unstack','merge_micro_islands'],
+            "merge_micro_islands": "2048×2048 unadopted static triangle candidate, one object, full exclusive atlas, no pins/seams/locks/reuse. Merge adjacent charts, pack and commit only with complete quality checks.",
             "pin_sync":"Explicit selected native pin import after validate; coordinates and native flags unchanged, locked-face anchors preserved",
             "split":"Move explicit FACES by delta_px, split continuous selection boundaries and mark seams; preserve prior cuts and unselected UV",
             "selection": "ISLANDS uses face seeds; FACES/LOOPS are exact indices; optional captured selection_binding must still match",

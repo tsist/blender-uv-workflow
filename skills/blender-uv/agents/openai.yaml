@@ -1,0 +1,5 @@
+interface:
+  display_name: "Blender UV"
+  short_description: "规划接缝、展开与精修 Blender UV，完成棋盘预览、表面采样与冷重开核验"
+  default_prompt: "用 blenderctl 检查模型消费关系与几何健康度，在工作副本上规划接缝、生成并精修 UV 候选，完成棋盘与独立重开核验。"
+  default_prompt: "Use $blender-uv for this Blender workflow task."

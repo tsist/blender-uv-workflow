@@ -458,6 +458,9 @@ def _execute(v,progress,scene,objects,s,supplied):
                         detail.update(status='intrinsic_repair_complete',pack_completed=True,
                                       global_layout_status=q['status'])
                     q['seams']={o.name:q['seams'][clone.name] for o,clone in zip(objects,clones)}
+                    for violation in q['constraints']['violations']:
+                        if len(violation) == 3 and violation[0] in names:
+                            violation[0] = names[violation[0]]
                     for row in q['density']['islands']:row['object']=names[row['object']]
                     for pair in q['overlap']['examples']:
                         for side in ('first','second'):pair[side]['object']=names[pair[side]['object']]

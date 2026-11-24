@@ -101,6 +101,54 @@ def _density(obj,layer,uv,faces,action,width,height,unit):
     return out,{'kind':'density','islands':rows}
 
 
+def _micro_merge_draft(obj, layer, record, constraints, faces, native_seams, params, action, adopted, progress):
+    from .consumers import inspect_objects
+    from .micro_island_merge import merge_micro_islands
+
+    mesh = obj.data
+    if (params['width'], params['height']) != (2048, 2048):
+        fail('Micro-island merge currently requires a 2048 × 2048 candidate', 'UNSUPPORTED')
+    if len(faces) != len(mesh.polygons) or not faces:
+        fail('Micro-island merge requires every face of the candidate object', 'CONFLICT')
+    if obj.modifiers or obj.parent or obj.animation_data or obj.constraints or mesh.shape_keys or mesh.animation_data:
+        fail('Micro-island merge currently requires a standalone static mesh', 'UNSUPPORTED')
+    if any(p.loop_total != 3 for p in mesh.polygons):
+        fail('Micro-island merge requires explicit triangles', 'UNSUPPORTED')
+    if adopted or mesh.uv_layers[layer].active_render:
+        fail('Use an unadopted, non-render candidate copy for micro-island merge', 'CONFLICT')
+    if native_seams or any(constraints[key] for key in ('pins', 'fixed', 'locked_faces', 'must_cut', 'must_not_cut')):
+        fail('Micro-island merge does not support native seams, pins, locked faces or required cuts/joins', 'UNSUPPORTED')
+    if record.get('last_management', {}).get('operation') == 'seams':
+        fail('Micro-island merge cannot discard an explicitly managed seam plan', 'UNSUPPORTED')
+    metrics = record['metrics']
+    if record.get('seam_plan', {}).get(obj.name):
+        fail('Micro-island merge cannot discard an explicitly managed seam plan', 'UNSUPPORTED')
+    source_layer = constraints.get('source_uv')
+    if source_layer and source_layer not in mesh.uv_layers:
+        fail('The candidate source layer is missing', 'CONFLICT')
+    if source_layer and core._pins(mesh, source_layer):
+        fail('Micro-island merge does not support pins on the imported source layer', 'UNSUPPORTED')
+    settings = record.get('settings', {})
+    density = settings.get('density', {})
+    if (settings.get('mode', 'EXCLUSIVE') != 'EXCLUSIVE' or settings.get('reuse_groups')
+            or settings.get('directions') or density.get('regions')
+            or density.get('default_px_m') is not None or 'density_px_m' in params):
+        fail('Micro-island merge does not support reuse, tiling, directions or explicit density targets', 'UNSUPPORTED')
+    consumer = inspect_objects([obj])[obj.name]
+    if consumer['unknown_binding'] or any(row['layer'] == layer for row in consumer['consumers']):
+        fail('Micro-island merge requires a candidate with no existing image consumer', 'UNSUPPORTED')
+    if not metrics['overlap']['complete'] or metrics['overlap']['positive_pairs']:
+        fail('Micro-island merge requires a complete input overlap check with no positive-area intersections', 'UNSUPPORTED')
+
+    draft, detail = merge_micro_islands(obj, layer, threshold_px2=action['threshold_px2'],
+                                        pair_budget=params['pair_budget'], progress=progress)
+    if detail['status'] == 'no_micro_islands':
+        fail('No islands are below the requested area threshold', 'CONFLICT')
+    if detail['status'] == 'no_groups_merged':
+        fail('No eligible adjacent micro-island groups could be merged', 'VALIDATION_FAILED')
+    return draft, detail
+
+
 def edit_candidate(scene,objects,record,s,v,unit,progress):
     from .editing_math import apply_coordinates
     layer=record['layer'];cid=v['candidate'];action=v['action'];kind=action['kind']
@@ -175,6 +223,9 @@ def edit_candidate(scene,objects,record,s,v,unit,progress):
             from .splitting import split
             out,details[o.name]=split(o,uv,faces,action['delta_px'],width,height)
         elif kind in ('pack','stack','unstack'):out=packed[o.name]
+        elif kind=='merge_micro_islands':
+            out,details[o.name]=_micro_merge_draft(o,layer,record,c,faces,old_seams[o.name],check,action,
+                                                  adopted and adopted['candidate']==cid,progress)
         elif kind=='orient':
             from .island_tools import orient
             out,details[o.name]=orient(o,uv,faces,action['edge_loops'],action['angle_degrees'],width,height)
@@ -201,9 +252,34 @@ def edit_candidate(scene,objects,record,s,v,unit,progress):
     try:
         for o,c in zip(objects,cs):
             core._write_uv(o.data,layer,outputs[o.name]);_pin_write(o.data,layer,sorted(map(int,c['fixed'])))
+        if kind == 'merge_micro_islands':
+            from .micro_island_merge import island_counts
+            from .packing import pack
+
+            obj = objects[0]
+            name = obj.name
+            policy = record.get('recipe', {}).get('policy', {})
+            progress('pack', action=kind)
+            merged_uv, pack_details = pack(
+                objects, layer, outputs, {name: range(len(obj.data.polygons))}, {name: cs[0]},
+                {'rotate': True, 'scale': True, 'pin_method': 'LOCKED'}, width, height,
+                policy.get('border_px_min', check['border_px']), policy.get('gap_px_min', check['margin_px']))
+            core._write_uv(obj.data, layer, merged_uv[name])
+            details[name]['pack'] = pack_details[name]
+            packed_counts = island_counts(obj, layer, action['threshold_px2'])
+            if packed_counts['micro_islands'] >= details[name]['micro_before_count']:
+                fail('Packed layout did not reduce the micro-island count', 'VALIDATION_FAILED')
+            details[name]['packed_counts'] = packed_counts
         if core.protection(objects,excluded=(layer,))!=before:fail('Original data protection mismatch','VALIDATION_FAILED')
         quality=core._quality(objects,layer,check,cs,unit,progress,edited.get('recipe'),edited.get('settings'))
         if quality['constraints']['status']!='pass':fail('Edit violates seam or fixed constraints: '+str(quality['constraints']['violations'][:8]),'CONFLICT')
+        if kind=='merge_micro_islands' and (quality['status']!='pass' or not quality['coverage']['numeric_complete']):
+            fail('Packed micro-island candidate did not pass complete quality checks: '+
+                 str(quality['recipe_checks']['violations'])+' ('+quality['status']+')','VALIDATION_FAILED')
+        if kind=='merge_micro_islands':
+            detail=details[objects[0].name]
+            detail['draft_status']=detail.pop('status')
+            detail['status']='packed_and_checked'
         edited['metrics']=quality;edited['uv_hash']={o.name:core._uv_fingerprint(o.data,layer) for o in objects}
         edited['status']='needs_review' if quality['status']=='pass' else quality['status']
         edited['revision']=int(record.get('revision',0))+1
@@ -213,6 +289,8 @@ def edit_candidate(scene,objects,record,s,v,unit,progress):
         previous_plan=record.get('seam_plan',record['metrics']['seams'])
         edited['seam_plan']={o.name:sorted(set(previous_plan.get(o.name,[]))|
             (set(quality['seams'][o.name])-set(record['metrics']['seams'][o.name]))) for o in objects}
+        if kind=='merge_micro_islands':
+            edited['seam_plan']=copy.deepcopy(quality['seams'])
         if kind=='stitch' and action['seam_mode']=='CLEAR_JOINED':
             for o in objects:
                 joined=set(details.get(o.name,{}).get('joined_edges',[]))

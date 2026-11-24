@@ -31,7 +31,7 @@ def main():
     extension = [(p.name, p) for p in ADDON.iterdir()
                  if p.is_file() and (p.suffix == '.py' or p.name in
                     {'blender_manifest.toml', 'LICENSE', 'NOTICE.md'})]
-    assert len(extension) == 32, 'Review changed production member set before publishing'
+    assert len(extension) == 34, 'Review changed production member set before publishing'
     assert {'LICENSE', 'NOTICE.md', '__init__.py', 'blender_manifest.toml'} <= {
         name for name, _ in extension}
     skill = [(p.relative_to(ROOT).as_posix(), p)

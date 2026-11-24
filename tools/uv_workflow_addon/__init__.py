@@ -1,5 +1,5 @@
 """UV Workflow: shared native Blender core and a small editing workbench."""
-bl_info = {"name": "UV Workflow", "author": "Blender AI", "version": (0, 8, 7),
+bl_info = {"name": "UV Workflow", "author": "Blender AI", "version": (0, 8, 8),
            "blender": (5, 2, 0), "location": "View3D > Sidebar > UV Workflow",
            "description": "Protected UV candidates, independent checks and native editing", "category": "UV"}
 
